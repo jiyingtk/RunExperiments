@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Monkey hasRun="false" operationcount="10000000" databasePath="../mount-point/ssd1">
+	<file name="uniform" requestdistribution="uniform"/>
+	<file name="zipf0.9" zipfianconst="0.9"/>
+	<file name="zipf0.99" zipfianconst="0.99"/>
+	<file name="zipf1.1" zipfianconst="1.1"/>
+	<file name="zipf1.2" zipfianconst="1.2"/>
+
+	<zero100-db100GB zerolookup="100" dbNamePrefix="monkey-ycsb" databasePath="../mount-point/ssd3" recordcount="100000000" recordcountbackup="100000000" insertstart="100000000" skipratioinload="1">
+		<file name="zipf0.99" zipfianconst="0.99"/>
+		<file name="zipf1.1" zipfianconst="1.1"/>
+		<file name="zipf1.2" zipfianconst="1.2"/>
+	</zero100-db100GB>
+
+	<zero100-db400GB zerolookup="100" dbNamePrefix="monkey-ycsb" dbSize="400GB" databasePath="../mount-point/ssd3" recordcount="400000000" recordcountbackup="400000000" insertstart="400000000" skipratioinload="1">
+		<file name="zipf0.99" zipfianconst="0.99"/>
+		<file name="zipf1.1" zipfianconst="1.1"/>
+		<file name="zipf1.2" zipfianconst="1.2"/>
+	</zero100-db400GB>
+
+	<zerolookup zipfianconst="1.2" dbNamePrefix="monkey-ycsb" databasePath="../mount-point/ssd1" recordcount="100000000" recordcountbackup="100000000" insertstart="100000000" skipratioinload="1">
+			<entry value="0">
+				<file name="origin"/>
+			</entry>
+			<entry value="25">
+				<file name="origin"/>
+			</entry>
+			<entry value="50">
+				<file name="origin"/>
+			</entry>
+			<entry value="75">
+				<file name="origin"/>
+			</entry>
+			<entry value="100">
+				<file name="origin"/>
+			</entry>
+	</zerolookup>
+</Monkey>

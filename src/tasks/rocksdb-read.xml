@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rocksdb-read hasRun="false" operationcount="10000000" databasePath="../mount-point/ssd3">
+	<zipf0.99 zipfianconst="0.99">
+		<threadnum>
+			<entry value="1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17200" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1720" regionDivideSize="4MB"/>
+				<file name="origin8bit" initFilterNum="2" maxOpenFiles="17200" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17200" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1720" regionDivideSize="4MB"/>
+				<file name="origin8bit" initFilterNum="2" maxOpenFiles="17200" regionDivideSize="4MB"/>
+			</entry>
+		</threadnum>
+		<zhdd databasePath="../mount-point/ssd5" operationcount="1000000">
+			<file name="origin" initFilterNum="1" maxOpenFiles="17200" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="1720" regionDivideSize="4MB"/>
+			<file name="origin8bit" initFilterNum="2" maxOpenFiles="17200" regionDivideSize="4MB"/>
+		</zhdd>
+	</zipf0.99>
+</rocksdb-read>

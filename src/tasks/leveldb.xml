@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="utf-8"?>
+<leveldb-gen hasRun="false" operationcount="10000000">
+	<zipf0.99 zipfianconst="0.99" >
+		<zerolookup dbNamePrefix="mlsm-ycsb" databasePath="../mount-point/ssd3" recordcount="100300000" recordcountbackup="100300000" insertstart="100300000" skipratioinload="1">
+			<entry value="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="25">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="50">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="75">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="100">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+		</zerolookup>
+
+		<valueSize>
+			<entry value="512B" databasePath="../mount-point/ssd1" recordcount="419430400" insertstart="419430400" fieldlength="492">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17400" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1740" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="256B" databasePath="../mount-point/ssd2" recordcount="838860800" insertstart="838860800" fieldlength="236">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17600" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1760" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="100B" databasePath="../mount-point/ssd1" recordcount="1677721600" insertstart="1677721600" fieldlength="100">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16600" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1660" regionDivideSize="4MB"/>
+			</entry>
+		</valueSize>
+
+		<dbSize>
+			<entry value="200GB" databasePath="../mount-point/ssd4" recordcount="419430400" insertstart="419430400">
+				<file name="origin" initFilterNum="1" maxOpenFiles="34800" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="3480" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="300GB" databasePath="../mount-point/ssd4" recordcount="629145600" insertstart="629145600">
+				<file name="origin" initFilterNum="1" maxOpenFiles="52100" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="5210" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="400GB" databasePath="../mount-point/ssd4" recordcount="838860800" insertstart="838860800">
+				<file name="origin" initFilterNum="1" maxOpenFiles="69100" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="6910" regionDivideSize="4MB"/>
+			</entry>
+		</dbSize>
+
+		<zero100-db100GB zerolookup="100" initFilterNum="2" maxOpenFiles="1650" forceDeleteLevel0File="true" regionDivideSize="4MB" dbNamePrefix="mlsm-ycsb" databasePath="../mount-point/ssd1" recordcount="100300000" recordcountbackup="100300000" insertstart="100300000" skipratioinload="1">
+			<file name="zipf0.99" zipfianconst="0.99"/>
+			<file name="zipf1.1" zipfianconst="1.1"/>
+			<file name="zipf1.2" zipfianconst="1.2"/>
+		</zero100-db100GB>
+
+		<zero100-db400GB zerolookup="100" initFilterNum="2" maxOpenFiles="6630" forceDeleteLevel0File="true" regionDivideSize="4MB" dbNamePrefix="mlsm-ycsb" dbSize="400GB" databasePath="../mount-point/ssd2" recordcount="400030000" recordcountbackup="400030000" insertstart="400030000" skipratioinload="1">
+			<file name="zipf0.99" zipfianconst="0.99"/>
+			<file name="zipf1.1" zipfianconst="1.1"/>
+			<file name="zipf1.2" zipfianconst="1.2"/>
+		</zero100-db400GB>
+
+		<zhdd databasePath="../mount-point/ssd5" operationcount="1000000">
+			<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+		</zhdd>
+
+		<memory-constrained useLRUCache="true">
+			<file name="origin8bit" initFilterNum="2" maxOpenFiles="890" regionDivideSize="128MB"/>
+		</memory-constrained>
+
+		<db400GBkv100B>
+			<entry value="100B-db400GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+				<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+			</entry>
+		</db400GBkv100B>
+
+		<diff-bitsArray>
+			<file name="extend-a3x8-8M" arrayName="33333333" databasePath="../mount-point/ssd1" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="8MB"/>
+			<file name="extend-a3x8-6M" arrayName="33333333" databasePath="../mount-point/ssd1" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="6MB"/>
+			<file name="extend-a3x8-6M-init3" arrayName="33333333" databasePath="../mount-point/ssd1" initFilterNum="3" maxOpenFiles="1770" regionDivideSize="6MB"/>
+			<file name="extend-a2x12-8M-init3" arrayName="222222222222" databasePath="../mount-point/ssd2" initFilterNum="3" maxOpenFiles="1770" regionDivideSize="8MB"/>
+			<file name="extend-a2x12-8M-init4" arrayName="222222222222" databasePath="../mount-point/ssd2" initFilterNum="4" maxOpenFiles="1770" regionDivideSize="8MB"/>
+			<file name="extend-a2x12-16M-init3" arrayName="222222222222" databasePath="../mount-point/ssd2" initFilterNum="3" maxOpenFiles="1770" regionDivideSize="16MB"/>
+		</diff-bitsArray>
+
+		<threadnum>
+			<entry value="4">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="8">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="12">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</threadnum>
+
+		<blockCache>
+			<entry value="0MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="2MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="4MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="6MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="8MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="64MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</blockCache>
+
+		<blockCache-warm adjustfilter="true">
+			<entry value="4MB" blockCache="4MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16MB" blockCache="16MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="64MB"  blockCache="64MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="256MB"  blockCache="256MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</blockCache-warm>
+
+		<distribution>
+			<entry value="uniform" requestdistribution="uniform">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="zipf0.9" zipfianconst="0.9">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="zipf0.99" zipfianconst="0.99">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="zipf1.1" zipfianconst="1.1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="zipf1.2" zipfianconst="1.2">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</distribution>
+
+		<directio directIOFlag="false">
+			<uniform requestdistribution="uniform">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</uniform>
+			<zipf0.9 zipfianconst="0.9">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</zipf0.9>
+			<zipf0.99 zipfianconst="0.99">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</zipf0.99>
+			<zipf1.1 zipfianconst="1.1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</zipf1.1>
+			<zipf1.2 zipfianconst="1.2">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</zipf1.2>
+		</directio>
+
+		<lifeTime>
+			<entry value="10000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="30000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="40000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="50000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</lifeTime>
+
+		<regionSize>
+			<entry value="1MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="16MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="64MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="256KB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+		</regionSize>
+	</zipf0.99>
+
+
+	<zipf1.2 zipfianconst="1.2">
+		<zerolookup dbNamePrefix="mlsm-ycsb" databasePath="../mount-point/ssd3" recordcount="100300000" recordcountbackup="100300000" insertstart="100300000" skipratioinload="1">
+			<entry value="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="25">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="50">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="75">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="100">
+				<file name="origin" initFilterNum="1" maxOpenFiles="16500" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1650" regionDivideSize="4MB"/>
+			</entry>
+		</zerolookup>
+
+		<threadnum>
+			<entry value="4">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="8">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="12">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</threadnum>
+
+		<blockCache>
+			<entry value="0MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="2MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="4MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="6MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="8MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="16MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="64MB">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</blockCache>
+
+		<lifeTime>
+			<entry value="10000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="30000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="40000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+			<entry value="50000">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</entry>
+		</lifeTime>
+
+		<regionSize>
+			<entry value="1MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="16MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="64MB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+			<entry value="256KB">
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770"/>
+			</entry>
+		</regionSize>
+	</zipf1.2>
+</leveldb-gen>

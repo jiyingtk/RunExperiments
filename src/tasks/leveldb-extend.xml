@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<leveldb-gen hasRun="false" operationcount="10000000" zipfianconst="0.99">
+	<db400GBkv100B >
+		<entry value="1GB-BC" blockCache="1GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+			<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+		</entry>
+		<entry value="2GB-BC" blockCache="2GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+			<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+		</entry>
+		<entry value="4GB-BC" blockCache="4GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+			<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+		</entry>
+		<entry value="6GB-BC" blockCache="6GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+			<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+		</entry>
+		<entry value="8GB-BC" blockCache="8GB" valueSize="100B" dbSize="400GB" databasePath="../mount-point/ssd4" recordcount="6710966400" insertstart="6710966400" fieldlength="100">
+			<file name="origin" initFilterNum="1" maxOpenFiles="66150" regionDivideSize="128MB"/>
+			<file name="extend" initFilterNum="2" maxOpenFiles="6615" regionDivideSize="4MB"/>
+		</entry>
+	</db400GBkv100B>
+	
+</leveldb-gen>

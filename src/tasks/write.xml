@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<write hasRun="false" operationcount="10000000" threads="4" disableCompaction="false" needExtractRawDB="true" zipfianconst="0.99">
+	<mixrw databasePath="../mount-point/ssd2">
+		<leveldb dbNamePrefix="mlsm" db="leveldb" rawDBPath="../../created_db/mlsml6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<r0.5 readproportion="0.5" insertproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</r0.5>
+			<r0.9 readproportion="0.9" insertproportion="0.1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</r0.9>
+		</leveldb>
+
+		<pebblesdb execFile="../../YCSB-PebblesDB/ycsbc" dbNamePrefix="pebblesdb" db="pebblesdb" rawDBPath="../../created_db/used-in-paper/pebblesdbl6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<r0.5 readproportion="0.5" insertproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17000" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</r0.5>
+			<r0.9 readproportion="0.9" insertproportion="0.1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</r0.9>
+		</pebblesdb>
+
+		<rocksdb dbNamePrefix="rocksdb" db="rocksdb" rawDBPath="../../created_db/used-in-paper/rocksdbl6s10b4a444444db100GBtable64MBkv1KBv2.tar.gz" recordcountbackup="217434321">
+			<r0.5 readproportion="0.5" insertproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17000" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17000" regionDivideSize="4MB"/>
+			</r0.5>
+			<r0.9 readproportion="0.9" insertproportion="0.1">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17000" regionDivideSize="4MB"/>
+			</r0.9>
+		</rocksdb>
+	</mixrw>
+
+	<ycsb databasePath="../mount-point/ssd1">
+		<leveldb  dbNamePrefix="mlsm" db="leveldb" rawDBPath="../../created_db/mlsml6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</f>
+		</leveldb>
+
+		<leveldb-zero100-zip0.99 zipfianconst="0.99" zerolookup="100" dbNamePrefix="mlsm" db="leveldb" rawDBPath="../../created_db/mlsml6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</f>
+		</leveldb-zero100-zip0.99>
+
+		<leveldb-zero100-zip1.2 zipfianconst="1.2" zerolookup="100" dbNamePrefix="mlsm" db="leveldb" rawDBPath="../../created_db/mlsml6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="monkey" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1770" regionDivideSize="4MB"/>
+			</f>
+		</leveldb-zero100-zip1.2>
+
+		<monkey-zip99-zero50 execFile="../../YCSB-Monkey/ycsbc"  dbNamePrefix="monkey-ycsb" db="monkey" rawDBPath="../../created_db/monkey-ycsbl6s10b4a444444db100GBtable64MBkv1KB.tar.gz" databasePath="../mount-point/ssd1" recordcount="100000000" recordcountbackup="100000000" insertstart="100000000" skipratioinload="1" zipfianconst="0.99" zerolookup="50" >
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</f>
+		</monkey-zip99-zero50>
+
+		<monkey-zip99-zero50v2 execFile="../../YCSB-Monkey/ycsbc"  dbNamePrefix="monkey" db="monkey" rawDBPath="../../created_db/monkeyl6s10b4a444444db100GBtable64MBkv1KB.tar.gz" databasePath="../mount-point/ssd1" recordcount="217434321" recordcountbackup="217434321" insertstart="217434321" skipratioinload="1" zipfianconst="0.99">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+			</f>
+		</monkey-zip99-zero50v2>
+
+		<pebblesdb execFile="../../YCSB-PebblesDB/ycsbc" dbNamePrefix="pebblesdb" db="pebblesdb" rawDBPath="../../created_db/used-in-paper/pebblesdbl6s10b4a444444db100GBtable64MBkv1KB.tar.gz" recordcountbackup="217434321">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="1700" regionDivideSize="4MB"/>
+			</f>
+		</pebblesdb>
+
+		<rocksdb dbNamePrefix="rocksdb" db="rocksdb" rawDBPath="../../created_db/used-in-paper/rocksdbl6s10b4a444444db100GBtable64MBkv1KBv2.tar.gz" recordcountbackup="217434321">
+			<a readproportion="0.5" updateproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17700" regionDivideSize="4MB"/>
+			</a>
+			<b readproportion="0.95" updateproportion="0.05">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17700" regionDivideSize="4MB"/>
+			</b>
+			<c readproportion="1" updateproportion="0">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17700" regionDivideSize="4MB"/>
+			</c>
+			<d readproportion="0.95" insertproportion="0.05" requestdistribution="latest">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17700" regionDivideSize="4MB"/>
+			</d>
+			<f readproportion="0.5" readmodifywriteproportion="0.5">
+				<file name="origin" initFilterNum="1" maxOpenFiles="17700" regionDivideSize="128MB"/>
+				<file name="extend" initFilterNum="2" maxOpenFiles="17700" regionDivideSize="4MB"/>
+			</f>
+		</rocksdb>
+	</ycsb>
+</write>

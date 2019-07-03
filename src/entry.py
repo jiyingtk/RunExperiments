@@ -1,28 +1,8 @@
-import re
 import os
-import sys
+import re
 import time
-import logging
 import ConfigParser
 
-scriptDir = "../scripts2"
-resultDir = "../result"
-logFile = "../run.log"
-waitTime = 2
-dbg = False
-forceDeleteDB = False
-
-logger = logging.getLogger("run-experiments")
-logger.setLevel(logging.DEBUG)
-fh = logging.FileHandler(logFile)
-fh.setLevel(logging.DEBUG)
-ch = logging.StreamHandler()
-ch.setLevel(logging.INFO)
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s:\n\t%(message)s')
-fh.setFormatter(formatter)
-ch.setFormatter(formatter)
-logger.addHandler(fh)
-logger.addHandler(ch)
 
 def transSize(inStr):
 	inStr = inStr.lower()
@@ -39,10 +19,12 @@ def transSize(inStr):
 		elif m.group(2) == "mb":
 			return size * 1024 * 1024
 		elif m.group(2) == "gb":
-			return size * 1024 * 1024
+			return size * 1024 * 1024 * 1024
 		else:
 			logger.error("transSize string:" + inStr + " error")
 			return 0
+
+
 
 class MyConfigParser(ConfigParser.ConfigParser):
 	def __init__(self, defaults = None):
@@ -52,7 +34,11 @@ class MyConfigParser(ConfigParser.ConfigParser):
 
 
 class ConfEntry:
-	def __init__(self, fileName = None):
+	def __init__(self, scriptDir, resultDir, forceDeleteDB, logger, fileName = None):
+		self.scriptDir = scriptDir
+		self.resultDir = resultDir
+		self.forceDeleteDB = forceDeleteDB
+		self.logger = logger
 		self.conf = MyConfigParser()
 		self.fileName = fileName
 		if fileName != None:
@@ -61,7 +47,15 @@ class ConfEntry:
 	def loadFile(self, fileName):
 		self.conf.read(fileName)
 
+	def isFinished(self):
+		return self.conf.getboolean("status", "hasRun")
+
 	def loadWorkload(self):
+		if self.conf.getboolean("global", "needExtractRawDB"):
+			recordcountbackup = self.conf.get("workload", "recordcountbackup")
+			self.conf.set("workload", "recordcount", recordcountbackup)
+			self.conf.set("workload", "insertstart", recordcountbackup)
+
 		workloadFile = self.conf.get("workload", "workloadFile")
 		
 		wlItems = self.conf.items("workload")
@@ -82,7 +76,7 @@ class ConfEntry:
 
 	def setDBConfig(self):
 		dbConfigFile = self.conf.get("global", "dbConfigFile")
-		logger.debug("dbConfigFile: " + dbConfigFile)
+		self.logger.debug("dbConfigFile: " + dbConfigFile)
 		dbConfig = MyConfigParser()
 		# dbConfig.read(dbConfigFile)
 
@@ -120,11 +114,17 @@ class ConfEntry:
 			dbConfig.write(f)
 
 	def setOutputFile(self):
-		if not os.path.exists(resultDir):
-			os.makedirs(resultDir)
-		scriptname = self.conf.get("global", "scriptName")
+		if not os.path.exists(self.resultDir):
+			os.makedirs(self.resultDir)
+		# scriptName = self.conf.get("global", "scriptName")
+		scriptName = self.fileName
+		if scriptName.endswith(".ini"):
+			scriptName = scriptName[:-4]
+
 		curTime = time.strftime('%Y-%m-%d-%H-%M', time.localtime(time.time()))
-		resultLoc = os.path.join(resultDir, scriptname + "--" + curTime)
+		scriptName = scriptName + "--" + curTime
+		# resultLoc = os.path.join(resultDir, scriptName)
+		resultLoc = scriptName.replace(self.scriptDir, self.resultDir)
 		self.conf.set("status", "resultLoc", resultLoc)
 		self.conf.set("status", "mainResultFile", "result.txt")
 
@@ -139,18 +139,21 @@ class ConfEntry:
 		dbFileName += "table" + self.conf.get("ycsb", "tableSize")
 		dbFileName += "kv" + self.conf.get("ycsb", "valueSize")
 		dbFileName = os.path.join(databasepath, dbFileName)
-		logger.debug("dbFileName: " + dbFileName)
+		self.logger.debug("dbFileName: " + dbFileName)
 		return dbFileName
 
 	def execScript(self):
 		sections = self.conf.sections()
 		if "global" not in sections:
-			logger.warning("script file " + self.fileName + " not contains global section")
+			self.logger.warning("script file " + self.fileName + " not contains global section")
 			return
 
 		if self.conf.getboolean("status", "hasRun") == True:
-			logger.info("script: " + self.fileName + " has run")
+			self.logger.info("script: " + self.fileName + " has run")
+			with open(self.fileName,"w+") as f:
+				self.conf.write(f)
 			return
+
 
 		cmd = ""
 		execFile = self.conf.get("global", "execFile")
@@ -169,12 +172,25 @@ class ConfEntry:
 		dbFileName = self.getDBFileName()
 		cmd += "-dbfilename " + dbFileName + " "
 
-		if forceDeleteDB:
+		if self.forceDeleteDB:
 			if os.path.exists(dbFileName):
-				logger.info("DB exists: " + dbFileName + ", force delete it")
+				self.logger.info("DB exists: " + dbFileName + ", force delete it")
+				os.system("rm -rf " + dbFileName)
+
+		if self.conf.getboolean("global", "needExtractRawDB"):
+			self.logger.info("extract raw db to " + dbFileName)
+			if os.path.exists(dbFileName):
+				self.logger.info("DB exists: " + dbFileName + ", force delete it")
 				os.system("rm -rf " + dbFileName)
 				flag = os.path.exists(dbFileName)
-				logger.info("delete old db: " + str(flag))
+				self.logger.info("delete old db, still exists: " + str(flag))
+			rawDBPath = self.conf.get("global", "rawDBPath")
+			if not os.path.exists(rawDBPath):
+				self.logger.error("raw db not exists: " + rawDBPath)
+				return
+			extractCMD = "tar zxf " + rawDBPath + " -C " + self.conf.get("global", "databasePath")
+			self.logger.info("exec: " + extractCMD)
+			os.system(extractCMD)
 
 		self.setDBConfig()
 		configpath = self.conf.get("global", "dbConfigFile")
@@ -193,7 +209,7 @@ class ConfEntry:
 		mainResultFile = self.conf.get("status", "mainResultFile")
 		cmd += "> " + mainResultFile + " 2>&1"
 
-		logger.info("cmd: " + cmd)
+		self.logger.info("cmd: " + cmd)
 
 		os.system(cmd)
 
@@ -205,20 +221,24 @@ class ConfEntry:
 
 		resultLoc = self.conf.get("status", "resultLoc")
 		if os.path.exists(resultLoc):
-			logger.error("result folder exists: " + resultLoc)
-			resultLoc += " (2)"
+			self.logger.error("result folder exists: " + resultLoc)
+			resultLoc += "_(2)"
 			self.conf.set("status", "resultLoc", resultLoc)
 
 		insertproportion = self.conf.getfloat("workload", "insertproportion")
-		if insertproportion != 0:
+		if insertproportion != 0 and self.conf.get("ycsb", "loadOrRun") != "load":
 			recordcount = self.conf.getint("workload", "recordcount")
 			operationcount = self.conf.getint("workload", "operationcount")
 			newrecordcount = int(recordcount + operationcount * insertproportion)
 			self.conf.set("workload", "recordcount", newrecordcount)
 			self.conf.set("workload", "insertstart", newrecordcount)
-			logger.info("insert new data, change recordcount and insertstart from " + str(recordcount) + " to " + str(newrecordcount))
+			self.logger.info("insert new data, change recordcount and insertstart from " + str(recordcount) + " to " + str(newrecordcount))
 
 		os.makedirs(resultLoc)
+
+		if resultLoc.find("/") != -1:
+			parentDir = resultLoc[: resultLoc.find("/")]
+			os.system("chown kv-group " + parentDir + " -R")
 
 		self.conf.set("status", "hasRun", "true")
 		with open(self.fileName,"w+") as f:
@@ -226,99 +246,6 @@ class ConfEntry:
 		
 		os.system("cp " + self.fileName + " " + resultLoc)
 		os.system("mv ./* " + resultLoc)
-		os.system("chown kv-group " + resultLoc)
+		# os.system("chown kv-group " + resultLoc)
 		os.system("chmod +r " + resultLoc + "/*")
-
-
-
-
-class ScriptManage:
-	opTypes = ["run", "result"]
-
-	def __init__(self, opType = "run"):
-		#check script folder
-		if not os.path.exists(scriptDir):
-			os.makedirs(scriptDir)
-		self.statusMap = dict()
-		self.opType = opType
-		self.getAllScripts(scriptDir)
-
-	def getAllScripts(self, dirName):
-		pathDirs = os.listdir(dirName)
-		for pathDir in pathDirs:
-			child = os.path.join(dirName, pathDir)
-			if os.path.isdir(child):
-				self.getAllScripts(child)
-			else:
-				if not child in self.statusMap.keys():
-					self.statusMap[child] = False
-
-	def getSortedKeyValue(self):
-		self.getAllScripts(scriptDir)
-		keys = self.statusMap.keys()
-		keys.sort()
-		values = map(self.statusMap.get, keys)
-		return (keys, values)
-
-	def printScriptsState(self):
-		keys = None
-		status = None
-		(keys, status) = self.getSortedKeyValue()
-		statusStr = "All scripts status:\n"
-		for i in range(len(keys)):
-			statusStr += "\tscript: %s, state: %s\n" % (keys[i], str(status[i]))
-		logger.info(statusStr)
-
-	def checkUlimit(self):
-		with os.popen("ulimit -n") as p:
-			line  = p.readline().strip()
-			if int(line) < 60000:
-				logger.error("system max open file nums too small: " + line)
-				return False
-			else:
-				logger.info("system max open file nums: " + line)
-				return True
-
-	def checkCurWorkspace(self):
-		if len(os.listdir("./")) != 0:
-			logger.error("current folder not empty!")
-			return False
-		else:
-			return True
-
-
-	def process(self):
-		if not self.checkUlimit():
-			return
-		keys = None
-		status = None
-		while True:
-			(keys, status) = self.getSortedKeyValue()
-			i = 0
-			while i < len(keys):
-				if status[i] == False:
-					break
-				i += 1
-			if i == len(keys):
-				break
-
-			if not dbg and not self.checkCurWorkspace():
-				break
-
-			if self.opType == "run":
-				logger.info("process script: " + keys[i])
-				confEntry = ConfEntry(keys[i])
-				confEntry.execScript()
-				self.statusMap[keys[i]] = True
-			
-			self.printScriptsState()
-			time.sleep(waitTime)
-
-
-if __name__ == '__main__':
-	if len(sys.argv) > 1 and sys.argv[1] == '-d':
-		dbg = True
-	if len(sys.argv) > 1 and sys.argv[1] == '-f':
-		forceDeleteDB = True
-	scriptManage = ScriptManage() 	
-	scriptManage.process()
+ 
