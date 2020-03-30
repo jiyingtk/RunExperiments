@@ -25,7 +25,9 @@ def clear(dirName):
 
 
 if __name__ == '__main__':
-	if len(sys.argv) != 2:
+	if len(sys.argv) < 2:
 		print("error input")
 		exit(1)
- 	clear(sys.argv[1]) 
+        for i in range(1,len(sys.argv)):
+            clear(sys.argv[i])
+        

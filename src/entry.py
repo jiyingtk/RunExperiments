@@ -238,7 +238,7 @@ class ConfEntry:
 
 		if resultLoc.find("/") != -1:
 			parentDir = resultLoc[: resultLoc.find("/")]
-			os.system("chown kv-group " + parentDir + " -R")
+			os.system("chown kvgroup " + parentDir + " -R")
 
 		self.conf.set("status", "hasRun", "true")
 		with open(self.fileName,"w+") as f:
