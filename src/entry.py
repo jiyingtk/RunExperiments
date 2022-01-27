@@ -3,6 +3,7 @@ import re
 import time
 import ConfigParser
 
+username = "distkv"
 
 def transSize(inStr):
 	inStr = inStr.lower()
@@ -236,9 +237,9 @@ class ConfEntry:
 
 		os.makedirs(resultLoc)
 
-		if resultLoc.find("/") != -1:
-			parentDir = resultLoc[: resultLoc.find("/")]
-			os.system("chown kvgroup " + parentDir + " -R")
+		if resultLoc.rfind("/") != -1:
+			parentDir = resultLoc[: resultLoc.rfind("/")]
+			os.system("chown " + username + " " + parentDir + " -R")
 
 		self.conf.set("status", "hasRun", "true")
 		with open(self.fileName,"w+") as f:
